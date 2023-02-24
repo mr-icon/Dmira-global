@@ -5,9 +5,11 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "../../api/axios";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const REGISTER_URL = '/register';
 
 function Register() {
   const userRef = useRef(null);
@@ -28,10 +30,9 @@ function Register() {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  // useEffect(() => {
-  //     const userRef = useRef()
-  //     userRef.current = userRef.current.focus();
-  // }, [])
+  useEffect(() => {
+      userRef.current.focus();
+  }, [])
 
   useEffect(() => {
     const result = USER_REGEX.test(user);
@@ -61,7 +62,28 @@ function Register() {
         setErrMsg("Invalid Entry");
         return;
     }
-    setSuccess(true);
+    try {
+        const response = await axios.post(REGISTER_URL, JSON.stringify({ user, pwd }),
+        {
+            headers: { 'Content-Type': 'application/json'},
+            withCredentials: true
+        });
+        setUser('');
+        setPwd('');
+        setMatchPwd('');
+        setSuccess(true);
+    } catch (err) {
+        if (!err?.response) {
+            if (!err?.response){
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 409) {
+                setErrMsg('Username Taken');
+            } else {
+                setErrMsg('Registration Failed');
+            }
+            errRef.current.focus();
+        }
+    }
   }
   return (
     <>
@@ -98,6 +120,7 @@ function Register() {
           ref={userRef}
           autoComplete="off"
           onChange={(e) => setUser(e.target.value)}
+          value={user}
           required
           aria-invalid={validName ? "false" : "true"}
           aria-describedby="uidnote"
@@ -130,6 +153,7 @@ function Register() {
           ref={userRef}
           autoComplete="off"
           onChange={(e) => setPwd(e.target.value)}
+          value={pwd}
           required
           aria-invalid={validPwd ? "false" : "true"}
           aria-describedby="uidnote"
@@ -159,6 +183,7 @@ function Register() {
           type="password"
           id="confirm_pwd"
           onChange={(e) => setMatchPwd(e.target.value)}
+          value={matchPwd}
           required
           aria-invalid={validMatch ? "false" : "true"}
           aria-describedby="confirmnote"
