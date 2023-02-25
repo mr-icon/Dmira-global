@@ -10,7 +10,7 @@ function Login() {
     const userRef = useRef();
     const errRef = useRef();
     
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -21,28 +21,28 @@ function Login() {
   
   useEffect(() => {
     setErrMsg('');
-  }, [user, pwd])
+  }, [email, pwd])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await axios.post(LOGIN_URL, JSON.stringify({user, pwd}),
+        const response = await axios.post(LOGIN_URL, JSON.stringify({email, pwd}),
         {
             headers: { 'Content-Type': 'application/json'},
             withCredentials: true
         });
         const accessToken = response?.data?.accessToken;
         const roles = response?.data?.roles;
-        setAuth({ user, pwd, roles, accessToken });
-        setUser('');
+        setAuth({ email, pwd, roles, accessToken });
+        setEmail('');
         setPwd('');
         setSuccess(true);
     } catch (err) {
         if (!err?.response){
             setErrMsg('No Server Response');
         } else if (err.response?.status === 400) {
-            setErrMsg('Missing Username or Password');
+            setErrMsg('Missing Email or Password');
         } else if (err.response?.status === 401) {
             setErrMsg('Unauthorized');
         } else {
@@ -67,13 +67,13 @@ function Login() {
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
             <h1>Sign In</h1>
             <form on onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <input type="text"
-                id="username" 
+                <label htmlFor="email">Email:</label>
+                <input type="email"
+                id="email" 
                 ref={userRef}
                 autoComplete="off"
-                onChange={(e) => setUser(e.target.value)}
-                value={user}
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 required/>
                 <label htmlFor="password">Password:</label>
                 <input type="password"

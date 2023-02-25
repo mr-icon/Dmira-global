@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)*$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
 
@@ -15,8 +15,8 @@ function Register() {
   const userRef = useRef(null);
   const errRef = useRef(null);
 
-  const [user, setUser] = useState("");
-  const [validName, setValidName] = useState(false);
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
 
   const [pwd, setPwd] = useState("");
@@ -35,16 +35,16 @@ function Register() {
   }, [])
 
   useEffect(() => {
-    const result = USER_REGEX.test(user);
-    console.log(result);
-    console.log(user);
-    setValidName(result);
-  }, [user]);
+    const result = EMAIL_REGEX.test(email);
+    // console.log(result);
+    // console.log(email);
+    setValidEmail(result);
+  }, [email]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
+    // console.log(result);
+    // console.log(pwd);
     setValidPwd(result);
     const match = pwd === matchPwd;
     setValidMatch(match);
@@ -52,23 +52,23 @@ function Register() {
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd, matchPwd]);
+  }, [email, pwd, matchPwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const v1 = USER_REGEX.test(user);
+    const v1 = EMAIL_REGEX.test(email);
     const v2 = PWD_REGEX.test(pwd);
     if (!v1 || !v2) {
         setErrMsg("Invalid Entry");
         return;
     }
     try {
-        const response = await axios.post(REGISTER_URL, JSON.stringify({ user, pwd }),
+        const response = await axios.post(REGISTER_URL, JSON.stringify({ email, pwd }),
         {
             headers: { 'Content-Type': 'application/json'},
             withCredentials: true
         });
-        setUser('');
+        setEmail('');
         setPwd('');
         setMatchPwd('');
         setSuccess(true);
@@ -77,7 +77,7 @@ function Register() {
             if (!err?.response){
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 409) {
-                setErrMsg('Username Taken');
+                setErrMsg('Email already Taken');
             } else {
                 setErrMsg('Registration Failed');
             }
@@ -105,24 +105,24 @@ function Register() {
       </p>
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">
-          Username:
-          <span className={validName ? "valid" : "hide"}>
+        <label htmlFor="email">
+          Email Address:
+          <span className={validEmail ? "valid" : "hide"}>
             <FontAwesomeIcon icon={faCheck} />
           </span>
-          <span className={validName || !user ? "hide" : "invalid"}>
+          <span className={validEmail || !email ? "hide" : "invalid"}>
             <FontAwesomeIcon icon={faTimes} />
           </span>
         </label>
         <input
-          type="text"
-          id="username"
+          type="email"
+          id="email"
           ref={userRef}
           autoComplete="off"
-          onChange={(e) => setUser(e.target.value)}
-          value={user}
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
           required
-          aria-invalid={validName ? "false" : "true"}
+          aria-invalid={validEmail ? "false" : "true"}
           aria-describedby="uidnote"
           onFocus={() => setUserFocus(true)}
           onBlur={() => setUserFocus(false)}
@@ -130,11 +130,10 @@ function Register() {
         <p
           id="uidnote"
           className={
-            userFocus && user && !validName ? "instruction" : "offscreen"
+            userFocus && email && !validEmail ? "instruction" : "offscreen"
           }
         >
           <FontAwesomeIcon icon={faInfoCircle} />
-          4 to 24 characters. <br />
           Must begin with a letter. <br />
           Letter, numbers, underscores, hyphens allowed.
         </p>
@@ -198,7 +197,7 @@ function Register() {
           Must match first password
         </p>
         <button
-          disabled={!validName || !validPwd || !validMatch ? true : false}
+          disabled={!validEmail || !validPwd || !validMatch ? true : false}
         >
           Sign Up
         </button>
