@@ -1,19 +1,23 @@
 import React, { useRef, useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth"
 import axios from "../../api/axios";
+import { Link, useLocation, useNavigation } from "react-router-dom";
 
 
 const LOGIN_URL = '/auth';
 
 function Login() {
     const { setAuth } = useAuth();
+
+    const navigate = useNavigation();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const userRef = useRef();
     const errRef = useRef();
     
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
 //   useEffect(() => {
 //     useRef.current.focus();
@@ -37,7 +41,7 @@ function Login() {
         setAuth({ email, pwd, roles, accessToken });
         setEmail('');
         setPwd('');
-        setSuccess(true);
+        navigate(from, { replace: true });
     } catch (err) {
         if (!err?.response){
             setErrMsg('No Server Response');
@@ -53,16 +57,6 @@ function Login() {
    
   }
     return (
-        <>
-        {success ? (
-            <section>
-                <h1>You are logged in!</h1>
-                <br />
-                <p>
-                    <a href="#">Go to Home</a>
-                </p>
-            </section>
-        ) : (
         <section>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
             <h1>Sign In</h1>
@@ -91,8 +85,6 @@ function Login() {
                 </span>
             </p>
         </section>
-        )}
-        </>
     )
 }
 
