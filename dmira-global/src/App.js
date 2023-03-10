@@ -7,8 +7,9 @@ import Enterotp from "./pages/auth/Enterotp";
 import Layout from "./components/Layout"
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import Missing from "./pages/auth/Missing";
-import RequireAuth from "./components/RequireAuth";
+// import RequireAuth from "./components/RequireAuth";
 import {Routes, Route } from 'react-router-dom'
+import Reset from "./pages/auth/Reset";
 
 function App() {
   return (
@@ -17,13 +18,13 @@ function App() {
           {/* public routes*/}
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="enterotp" element={<Enterotp />} />
+          <Route path="enter-otp" element={<Enterotp />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset" element={<Reset />} />
           
           {/* protected routes*/}
-          <Route element={<RequireAuth />}>
-            <Route path="/" element={<Login />} />
-          </Route>
+          <Route path="/" element={<Home />} />
+          
 
           {/* catch all */}
           <Route path="*" element={<Missing />} />

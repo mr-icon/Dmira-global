@@ -1,62 +1,70 @@
-import React, { useRef, useState } from 'react';
-import axios from '../../api/axios';
-import useAuth from '../../hooks/useAuth';
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
+
+const FORGOT_URL = "/forgot-password";
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState("");
-    const [err, setErr] = useState([]);
-    const [status, setStatus] = useState(null);
+  const [email, setEmail] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
-    const errRef = useRef();
+  const errRef = useRef();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErr([]);
-        setStatus(null);
-        
-        try {
-            const response = await axios.post("/forgot-password", JSON.stringify({email}),
-            {
-                headers: { 'Content-Type' : 'application/json'},
-                withCredentials: true
-            });
-            setStatus(response.data.status)
-            setEmail('');
-        } catch (err) {
-            if (!err?.response) {
-                if (!err?.response){
-                    setErr('No Server Response');
-                } else if (err.response?.status === 409) {
-                    setErr('Email already Taken');
-                } else {
-                    setErr('Failed To Submit');
-                }
-                errRef.current.focus();
-            }
+  useEffect(() => {
+    setErrMsg("");
+  }, [email]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrMsg([]);
+
+    try {
+      const response = await axios.post(FORGOT_URL, JSON.stringify({ email }), {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+      setEmail("");
+    } catch (err) {
+      if (!errMsg?.response) {
+        if (!errMsg?.response) {
+          setErrMsg("No Server Response");
+        } else if (errMsg.response?.status === 400) {
+          setErrMsg("Email Not Found");
+        } else {
+          setErrMsg("Failed To Submit");
         }
+        errRef.current.focus();
+      }
     }
-    return (
-        <section>
-            <p ref={errRef} className={err ? "errmsg" : "offscreen"}>{err}</p>
-            <h1>Enter Email Address</h1>
-            <form on onSubmit={handleSubmit}>
-                <label htmlFor="email">Email:</label>
-                <input type="email"
-                id="email" 
-                autoComplete="off"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                required/>
-                <button>Submit</button>
-            </form>
-            <p>
-                Have an Account?<br />
-                <span className="line">
-                    <a href="#">Sign IN</a>
-                </span>
-            </p>
-        </section>
-    )
-}
+  };
+  return (
+    <section>
+      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
+        {errMsg}
+      </p>
+      <h1>Forgot Password</h1>
+      <form on onSubmit={handleSubmit}>
+        <label htmlFor="email">Email Address:</label>
+        <input
+          type="email"
+          id="email"
+          autoComplete="off"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+        />
+        <button>Submit</button>
+      </form>
+      <p>
+        Need an Account?
+        <br />
+        <span className="line">
+          <Link to={"/register"}>Sign Up</Link>
+        </span>
+      </p>
+    </section>
+  );
+};
 
-export default ForgotPassword
+export default ForgotPassword;

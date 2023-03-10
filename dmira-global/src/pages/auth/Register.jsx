@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   faCheck,
   faTimes,
@@ -91,7 +92,7 @@ function Register() {
         <section>
             <h1>Success</h1>
             <p>
-                <a href="#">Sign In</a>
+              <Link to={"/login"}>Sign In</Link>
             </p>
         </section>
     ) : ( 
@@ -205,7 +206,7 @@ function Register() {
       <p>
         Already registered?<br />
         <span className="line">
-            <a href="#">Sign In</a>
+          <Link to={"/login"}>Sign In</Link>
         </span>
       </p>
     </section>

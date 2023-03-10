@@ -9,9 +9,9 @@ const LOGIN_URL = '/auth';
 function Login() {
     const { setAuth } = useAuth();
 
-    const navigate = useNavigation();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+    // const navigate = useNavigation();
+    // const location = useLocation();
+    // const from = location.state?.from?.pathname || "/";
     const userRef = useRef();
     const errRef = useRef();
     
@@ -41,7 +41,7 @@ function Login() {
         setAuth({ email, pwd, roles, accessToken });
         setEmail('');
         setPwd('');
-        navigate(from, { replace: true });
+        // navigate(from, { replace: true });
     } catch (err) {
         if (!err?.response){
             setErrMsg('No Server Response');
@@ -76,12 +76,17 @@ function Login() {
                 value={pwd}
                 required
                 />
+                <input type="checkbox" />
+                <label htmlFor="remember">Remember Me</label>
+                <span className="line">
+                    <Link to={"/forgot-password"}>Forgot Password</Link>
+                </span>
                 <button>Sign In</button>
             </form>
             <p>
                 Need an Account?<br />
                 <span className="line">
-                    <a href="#">Sign Up</a>
+                    <Link to={"/register"}>Sign Up</Link>
                 </span>
             </p>
         </section>
