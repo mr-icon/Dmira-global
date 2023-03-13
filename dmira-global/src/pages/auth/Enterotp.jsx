@@ -54,9 +54,8 @@ function Enterotp() {
           <h1>Enter Otp</h1>
           <p>Enter the OTP sent to your Email to verify your identity</p>
           <div className="inputfield">
-          {otp.map((data, index) => {
-            return (
-           
+            {otp.map((data, index) => {
+              return (
                 <input
                   className="input"
                   text="text"
@@ -67,8 +66,8 @@ function Enterotp() {
                   onChange={(e) => handleChange(e.target, index)}
                   onFocus={(e) => e.target.select()}
                 />
-            );
-          })}
+              );
+            })}
           </div>
           <p>OTP Entered - {otp.join("")}</p>
           <p>
