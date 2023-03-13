@@ -62,31 +62,6 @@ textarea {
   border-radius: 0.5rem;
 }
 
-.inputfield {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
-.input {
-  height: 2em;
-  width: 1.5em;
-  border: 2px solid #dad9df;
-  outline: none;
-  text-align: center;
-  font-size: 1.5em;
-  border-radius: 0.3em;
-  background-color: #fff;
-  outline: none;
-}
-
-.input:disabled {
-  color: #89888b;
-}
-
-.input:focus {
-  border: 3px solid dodgerblue;
-}
-
 label,
 button {
   margin-top: 1rem;
@@ -143,4 +118,35 @@ button:hover {
 
 .line {
   display: inline-block;
+}
+
+/* enter otp page */
+.inputfield {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.input {
+  height: 2em;
+  width: 1.5em;
+  border: 2px solid #dad9df;
+  outline: none;
+  text-align: center;
+  font-size: 1.5em;
+  border-radius: 0.3em;
+  background-color: #fff;
+  outline: none;
+}
+
+.input:disabled {
+  color: #89888b;
+}
+
+.input:focus {
+  border: 3px solid dodgerblue;
+}
+
+.otp-btn {
+  display: flex;
+  justify-content: space-around;
 }

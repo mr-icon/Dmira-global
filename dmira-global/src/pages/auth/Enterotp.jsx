@@ -70,7 +70,7 @@ function Enterotp() {
             })}
           </div>
           <p>OTP Entered - {otp.join("")}</p>
-          <p>
+          <p className="otp-btn">
             <button
               className="btn btn-secondary mr-2"
               onClick={(e) => setOtp([...otp.map((v) => "")])}
