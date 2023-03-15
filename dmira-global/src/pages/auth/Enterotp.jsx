@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "../../api/axios";
+import "../../Auth.css";
 
 const OTP_URL = "/enter-otp";
 

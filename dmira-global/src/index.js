@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import App from "./App";
 import { AuthProvider } from "./context/AuthProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
