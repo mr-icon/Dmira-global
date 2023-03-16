@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+// import "./App.css";
 import Home from "./pages/auth/Home";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
@@ -10,6 +10,7 @@ import Missing from "./pages/auth/Missing";
 // import RequireAuth from "./components/RequireAuth";
 import { Routes, Route } from "react-router-dom";
 import Reset from "./pages/auth/Reset";
+import Shop from "./pages/auth/Shop";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
 
         {/* protected routes*/}
         <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
 
         {/* catch all */}
         <Route path="*" element={<Missing />} />

@@ -5,7 +5,7 @@ class Navbar extends Component {
   render() {
     return (
       <React.Fragment>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary navbar-primary bg-primary mb-3 border-bottom">
           <div className="container-fluid">
             <a className="navbar-brand" href="#">
               Dimira-Global
@@ -83,7 +83,7 @@ class Navbar extends Component {
                   placeholder="Search"
                   aria-label="Search"
                 />
-                <button className="btn btn-outline-success" type="submit">
+                <button className="btn btn-outline-primary" type="submit">
                   Search
                 </button>
               </form>
