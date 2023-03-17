@@ -1,5 +1,5 @@
 import React from "react";
-// import "./App.css";
+import "./App.css";
 import Home from "./pages/auth/Home";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";

@@ -5,7 +5,7 @@ import Product from "../../components/Product";
 class Shop extends Component {
   state = {
     products: [
-      { id: 1, productName: "Banana", price: 1200, quantity: 0 },
+      { id: 1, productName: "Banana", price: 1200, quantity: 8 },
       { id: 2, productName: "Apple", price: 200, quantity: 0 },
       { id: 3, productName: "fish", price: 2000, quantity: 0 },
       { id: 4, productName: "table-water", price: 500, quantity: 0 },

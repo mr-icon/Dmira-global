@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
-import "../../Auth.css";
 
 const Missing = () => {
   return (
-    <article style={{ padding: "100px" }}>
+    <article style={{ padding: "100px" }} className="auth">
       <h1>Oops!</h1>
       <p>Page Not Found</p>
-      <div className="flexGrow">
-        <Link to="/">Visit Our Homepage</Link>
+      <div>
+        <Link to="/" className="text-primary">
+          Visit Our Homepage
+        </Link>
       </div>
     </article>
   );

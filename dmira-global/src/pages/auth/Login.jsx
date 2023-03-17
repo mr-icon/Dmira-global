@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 import { Link, useLocation, useNavigation } from "react-router-dom";
-import "../../Auth.css";
 
 const LOGIN_URL = "/auth";
 
@@ -59,45 +58,57 @@ function Login() {
     }
   };
   return (
-    <section>
-      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
-        {errMsg}
-      </p>
-      <h1>Sign In</h1>
-      <form on onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          ref={userRef}
-          autoComplete="off"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          required
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          onChange={(e) => setPwd(e.target.value)}
-          value={pwd}
-          required
-        />
-        <input type="checkbox" />
-        <label htmlFor="remember">Remember Me</label>
-        <span className="line">
-          <Link to={"/forgot-password"}>Forgot Password</Link>
-        </span>
-        <button>Sign In</button>
-      </form>
-      <p>
-        Need an Account?
-        <br />
-        <span className="line">
-          <Link to={"/register"}>Sign Up</Link>
-        </span>
-      </p>
-    </section>
+    <div className="auth">
+      <section className="auth-section border">
+        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
+          {errMsg}
+        </p>
+        <h1>Sign In</h1>
+        <form on onSubmit={handleSubmit}>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            ref={userRef}
+            autoComplete="off"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPwd(e.target.value)}
+            value={pwd}
+            required
+          />
+          <div className="form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="rememberMe"
+            />
+            <label className="form-check-label" for="rememberMe">
+              Remember Me
+            </label>
+          </div>
+          <span className="line">
+            <Link to={"/forgot-password"}>Forgot Password</Link>
+          </span>
+          <button>Sign In</button>
+        </form>
+        <p>
+          Need an Account?
+          <br />
+          <span className="line">
+            <Link to={"/register"} className="text-primary">
+              Sign Up
+            </Link>
+          </span>
+        </p>
+      </section>
+    </div>
   );
 }
 

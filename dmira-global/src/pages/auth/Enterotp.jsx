@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import axios from "../../api/axios";
-import "../../Auth.css";
 
 const OTP_URL = "/enter-otp";
 
@@ -42,49 +41,51 @@ function Enterotp() {
   };
 
   return (
-    <section className="my-auto">
-      <p
-        ref={errRef}
-        className={errMsg ? "errmsg" : "offscreen"}
-        aria-live="assertive"
-      >
-        {errMsg}
-      </p>
-      <div className="row">
-        <div className="col text-center">
-          <h1>Enter Otp</h1>
-          <p>Enter the OTP sent to your Email to verify your identity</p>
-          <div className="inputfield">
-            {otp.map((data, index) => {
-              return (
-                <input
-                  className="input"
-                  text="text"
-                  name="otp"
-                  maxLength="1"
-                  key={index}
-                  value={data}
-                  onChange={(e) => handleChange(e.target, index)}
-                  onFocus={(e) => e.target.select()}
-                />
-              );
-            })}
+    <div className="auth">
+      <section className="my-auto auth-section border">
+        <p
+          ref={errRef}
+          className={errMsg ? "errmsg" : "offscreen"}
+          aria-live="assertive"
+        >
+          {errMsg}
+        </p>
+        <div className="row">
+          <div className="col text-center">
+            <h1>Enter Otp</h1>
+            <p>Enter the OTP sent to your Email to verify your identity</p>
+            <div className="inputfield">
+              {otp.map((data, index) => {
+                return (
+                  <input
+                    className="input"
+                    text="text"
+                    name="otp"
+                    maxLength="1"
+                    key={index}
+                    value={data}
+                    onChange={(e) => handleChange(e.target, index)}
+                    onFocus={(e) => e.target.select()}
+                  />
+                );
+              })}
+            </div>
+            <p>OTP Entered - {otp.join("")}</p>
+            <p className="otp-btn">
+              <button
+                className="btn btn-secondary mr-2"
+                onClick={(e) => setOtp([...otp.map((v) => "")])}
+              >
+                Clear
+              </button>
+              <button className="btn btn-primary" onClick={handleClick}>
+                Verify OTP
+              </button>
+            </p>
           </div>
-          <p>OTP Entered - {otp.join("")}</p>
-          <p className="otp-btn">
-            <button
-              className="btn btn-secondary mr-2"
-              onClick={(e) => setOtp([...otp.map((v) => "")])}
-            >
-              Clear
-            </button>
-            <button className="btn btn-primary" onClick={handleClick}>
-              Verify OTP
-            </button>
-          </p>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
 

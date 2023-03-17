@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
-import "../../Auth.css";
 
 const FORGOT_URL = "/forgot-password";
 
@@ -40,31 +39,36 @@ const ForgotPassword = () => {
     }
   };
   return (
-    <section>
-      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
-        {errMsg}
-      </p>
-      <h1>Forgot Password</h1>
-      <form on onSubmit={handleSubmit}>
-        <label htmlFor="email">Email Address:</label>
-        <input
-          type="email"
-          id="email"
-          autoComplete="off"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          required
-        />
-        <button>Submit</button>
-      </form>
-      <p>
-        Need an Account?
-        <br />
-        <span className="line">
-          <Link to={"/register"}>Sign Up</Link>
-        </span>
-      </p>
-    </section>
+    <div className="auth">
+      <section className="auth-section border">
+        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
+          {errMsg}
+        </p>
+        <h1>Forgot Password</h1>
+        <form on onSubmit={handleSubmit}>
+          <label htmlFor="email" className="form-label">
+            Email Address:
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="form-control"
+            autoComplete="off"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+          />
+          <button>Submit</button>
+        </form>
+        <p>
+          Need an Account?
+          <br />
+          <span className="line">
+            <Link to={"/register"}>Sign Up</Link>
+          </span>
+        </p>
+      </section>
+    </div>
   );
 };
 

@@ -7,7 +7,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
-import "../../Auth.css";
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)*$/;
@@ -92,7 +91,7 @@ function Register() {
     }
   };
   return (
-    <>
+    <div className="auth">
       {success ? (
         <section>
           <h1>Success</h1>
@@ -101,7 +100,7 @@ function Register() {
           </p>
         </section>
       ) : (
-        <section className="my-auto">
+        <section className="my-auto auth-section border">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -214,12 +213,14 @@ function Register() {
             Already registered?
             <br />
             <span className="line">
-              <Link to={"/login"}>Sign In</Link>
+              <Link to={"/login"} className="text-primary">
+                Sign In
+              </Link>
             </span>
           </p>
         </section>
       )}
-    </>
+    </div>
   );
 }
 

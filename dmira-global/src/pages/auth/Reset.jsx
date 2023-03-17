@@ -7,7 +7,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
-import "../../Auth.css";
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const RESET_URL = "/reset";
@@ -71,7 +70,7 @@ const Reset = () => {
     }
   };
   return (
-    <>
+    <div className="auth">
       {success ? (
         <section>
           <h1>Success</h1>
@@ -80,7 +79,7 @@ const Reset = () => {
           </p>
         </section>
       ) : (
-        <section className="my-auto">
+        <section className="my-auto auth-section border">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -157,7 +156,7 @@ const Reset = () => {
           </form>
         </section>
       )}
-    </>
+    </div>
   );
 };
 
