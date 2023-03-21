@@ -76,7 +76,7 @@ class Navbar extends Component {
                   <a className="nav-link disabled">Disabled</a>
                 </li> */}
               </ul>
-              <form className="d-flex" role="search">
+              {/* <form className="d-flex" role="search">
                 <input
                   className="form-control me-2"
                   type="search"
@@ -85,8 +85,9 @@ class Navbar extends Component {
                 />
                 <button className="btn btn-outline-primary" type="submit">
                   Search
-                </button>
-              </form>
+                </button> 
+                </form>
+                */}
             </div>
           </div>
         </nav>

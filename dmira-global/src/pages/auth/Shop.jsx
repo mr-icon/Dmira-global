@@ -13,23 +13,52 @@ class Shop extends Component {
       { id: 6, productName: "Book", price: 1700, quantity: 0 },
     ],
   };
+
+  handleIncrement = (product) => {
+    let allProducts = [...this.state.products];
+    let index = allProducts.indexOf(product);
+    allProducts[index].quantity++;
+
+    this.setState({ products: allProducts });
+  };
+
+  handleDecrement = (product) => {
+    let allProducts = [...this.state.products];
+    let index = allProducts.indexOf(product);
+    allProducts[index].quantity--;
+
+    this.setState({ products: allProducts });
+  };
+
+  handleDelete = (product) => {
+    let allProducts = [...this.state.products];
+    let index = allProducts.indexOf(product);
+
+    if (window.confirm("Confirm delete")) {
+      allProducts.splice(index, 1);
+
+      this.setState({ products: allProducts });
+    }
+  };
   render() {
     return (
       <div>
         <Navbar />
-        <h4>Shop</h4>
-        <div>
-          {this.state.products.map((prod) => {
-            return (
-              <Product
-                key={prod.id}
-                id={prod.id}
-                productName={prod.productName}
-                price={prod.price}
-                quantity={prod.quantity}
-              />
-            );
-          })}
+        <div className="container-fluid">
+          <h2 className="text-muted">Shop</h2>
+          <div className="row">
+            {this.state.products.map((prod) => {
+              return (
+                <Product
+                  key={prod.id}
+                  product={prod}
+                  onIncrement={this.handleIncrement}
+                  onDecrement={this.handleDecrement}
+                  onDelete={this.handleDelete}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     );
