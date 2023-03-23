@@ -3,16 +3,55 @@ import Navbar from "../../components/Navbar";
 import Product from "../../components/Product";
 
 class Shop extends Component {
-  state = {
-    products: [
-      { id: 1, productName: "Banana", price: 1200, quantity: 8 },
-      { id: 2, productName: "Apple", price: 200, quantity: 0 },
-      { id: 3, productName: "fish", price: 2000, quantity: 0 },
-      { id: 4, productName: "table-water", price: 500, quantity: 0 },
-      { id: 5, productName: "Car", price: 80000, quantity: 0 },
-      { id: 6, productName: "Book", price: 1700, quantity: 0 },
-    ],
-  };
+  constructor() {
+    super();
+    this.state = {
+      products: [
+        {
+          id: 1,
+          productName: "Banana",
+          price: 1200,
+          quantity: 8,
+          imgUrl: "/imgs/banana.jpg",
+        },
+        {
+          id: 2,
+          productName: "Apple",
+          price: 200,
+          quantity: 0,
+          imgUrl: "/imgs/computer.jpg",
+        },
+        {
+          id: 3,
+          productName: "computer",
+          price: 2000,
+          quantity: 0,
+          imgUrl: "/imgs/computer.jpg",
+        },
+        {
+          id: 4,
+          productName: "table-water",
+          price: 500,
+          quantity: 0,
+          imgUrl: "/imgs/computer.jpg",
+        },
+        {
+          id: 5,
+          productName: "Car",
+          price: 80000,
+          quantity: 0,
+          imgUrl: "/imgs/car.jpg",
+        },
+        {
+          id: 6,
+          productName: "Book",
+          price: 1700,
+          quantity: 0,
+          imgUrl: "/imgs/book.jpg",
+        },
+      ],
+    };
+  }
 
   handleIncrement = (product) => {
     let allProducts = [...this.state.products];

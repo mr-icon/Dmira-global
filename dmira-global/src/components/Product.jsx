@@ -9,12 +9,12 @@ class Product extends Component {
   render() {
     return (
       <Card className="h-100 col-lg-5 m-2">
-        {/* <Card.Img
+        <Card.Img
           variant="top"
-          src={imgUrl}
+          src={this.state.product.imgUrl}
           height="200px"
           style={{ objectFit: "cover" }}
-        /> */}
+        />
         <Card.Body className="d-flex flex-column card-body">
           <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
             <span className="fs-2">{this.state.product.productName}</span>
